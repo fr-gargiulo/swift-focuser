@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Introspect
+import SwiftUIIntrospect
 
 class TextFieldObserver: NSObject, UITextFieldDelegate {
     var onReturnTap: () -> () = {}
@@ -66,7 +66,7 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
     
     public func body(content: Content) -> some View {
         content
-            .introspectTextField { tf in
+			.introspect(.textField, on: .iOS(.v15)) { tf in
                 if !(tf.delegate is TextFieldObserver) {
                     observer.forwardToDelegate = tf.delegate
                     tf.delegate = observer

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIIntrospect
 
 public struct FocusModifierTextEditor<Value: FocusStateCompliant & Hashable>: ViewModifier {
     @Binding var focusedField: Value?
@@ -14,11 +15,11 @@ public struct FocusModifierTextEditor<Value: FocusStateCompliant & Hashable>: Vi
     
     public func body(content: Content) -> some View {
         content
-            .introspectTextView { tv in
-                if focusedField == equals {
-                    tv.becomeFirstResponder()
-                }
-            }
+			.introspect(.textEditor, on: .iOS(.v15), customize: { tv in
+				if focusedField == equals {
+					tv.becomeFirstResponder()
+				}
+			})
             .simultaneousGesture(TapGesture().onEnded {
               focusedField = equals
             })
