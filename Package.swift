@@ -14,12 +14,14 @@ let package = Package(
             targets: ["Focuser"]),
     ],
     dependencies: [
-        .package(name: "Introspect", url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.1.3")
+		.package(url: "https://github.com/siteline/swiftui-introspect", from: "26.0.0"),
     ],
     targets: [
         .target(
             name: "Focuser",
-            dependencies: ["Introspect"]),
+            dependencies: [
+				.product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
+			]),
         .testTarget(
             name: "FocuserTests",
             dependencies: ["Focuser"]),
